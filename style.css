@@ -1,0 +1,72 @@
+:root {
+  --black: #2d3436;
+  --darker-black: #161718;
+  --gray: #dfe6e9;
+  --darkergray: #747d8c;
+  --blue: #2980b9; 
+  --green: #27ae60; 
+  --red: #c0392b;
+  --lightred: #e74c3c;
+}
+
+html {
+  box-sizing: border-box;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--gray);
+  background:linear-gradient(0.25turn, #e67e22, var(--red), var(--lightred));
+}
+*,
+*:before,
+*:after {
+box-sizing: inherit;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 95vh;
+}
+
+h1 {
+  padding-bottom: 10px;
+  border-bottom: solid 3.5px var(--green);
+  font-weight: 700;
+  font-size: 2.25rem;
+  letter-spacing: .75rem;
+  margin-bottom: 40px;
+}
+.break-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 50px;
+}
+
+.break-buttons button {
+  padding: 10px 15px;
+  margin: 0 5px;
+}
+
+.start-stop-reset {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.start-stop-reset button {
+  padding: 15px;
+  margin: 0 15px;
+}
+
+.time-display {
+  padding: 20px 20px;
+  font-size: 10rem;
+  letter-spacing: .5rem;
+}
+
+

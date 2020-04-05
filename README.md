@@ -1,0 +1,2 @@
+This is the repository for my version of the pomodoro timer: https://en.wikipedia.org/wiki/Pomodoro_Technique
+Following the assignment here: https://www.theodinproject.com/courses/web-development-101/lessons/pairing-project
