@@ -1,10 +1,8 @@
 :root {
   --black: #2d3436;
-  --darker-black: #161718;
   --gray: #dfe6e9;
-  --darkergray: #747d8c;
   --blue: #2980b9; 
-  --green: #27ae60; 
+  --green: #009432; 
   --red: #c0392b;
   --lightred: #e74c3c;
   --orange: #e67e22;
@@ -39,25 +37,27 @@ h1 {
   font-weight: 700;
   font-size: 2.75rem;
   letter-spacing: .75rem;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 }
 .break-buttons {
   display: flex;
-  justify-content: flex-end;
-  margin-bottom: 50px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  height: 40px;
 }
 
 .break-buttons button {
-  padding: 10px 15px;
+  padding: 0px 15px;
   margin: 0 5px;
 }
 
-.start-stop-reset {
+ .start-stop-reset {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
-}
+  margin-top: 40px;
+ }
 
 .start-stop-reset button {
   padding: 15px;
@@ -65,7 +65,7 @@ h1 {
 }
 
 .time-display {
-  padding: 20px 20px;
+  padding: 20px;
   font-size: 10rem;
   letter-spacing: .5rem;
 }
@@ -86,6 +86,8 @@ h1 {
 }
 
 .btn-break-short, .btn-break-long {
+  display: flex;
+  align-items: center;
   background-color: var(--gray);
   color: var(--black)
 }
@@ -93,15 +95,17 @@ h1 {
 .btn-tomato {
   background-color: var(--green);
   color: var(--gray);
+  height: 40px;
 }
 
 button {
   font-weight: 700;
   letter-spacing: 1.5px;
   border-radius: 10px;
+  font-size: 1.2rem;
 }
 
-button:hover {
+button:hover, ion-icon:hover {
   cursor: pointer;
   opacity: .85;
   transition: .2s;
@@ -112,12 +116,20 @@ button:hover {
   align-items: center;
 }
 
+.break-btn-updown ion-icon {
+  display: flex;
+  flex-direction: column;
+  font-size: 350%;
+  color: var(--green);
+}
+
+
 .input-value {
   font-size: 1.5rem;
 }
 
 .slider-label {
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   color: var(--green);
   font-weight: 700;
   margin-right: 5px;
