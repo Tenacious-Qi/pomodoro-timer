@@ -19,15 +19,9 @@ initialTime = timerDisplay.textContent.split(':')
 
 // -- EVENT LISTENERS -- //
 tomato.addEventListener('click', function() {
+  resetTimer();
+  timer();
   timerRunning = true; 
-  if (minutes < 0) {
-    minutes = 25;
-    seconds = 0;
-    timer();
-
-  } else {
-    timer();
-  }
 });
 
 start.addEventListener('click', function() {
@@ -48,19 +42,19 @@ stop.addEventListener('click', function() {
 });
 
 let resetClicked = false;
-function resetTimer() {
-  reset.addEventListener('click', function() {
-    timerRunning = false;
-    paused = false;
-    clearInterval(interval);
-    minutes = parseInt(initialTime[0]);
-    seconds = parseInt(initialTime[1]);
-    timerDisplay.textContent = minutes + `:0${seconds}`
-  });
-}
-
+reset.addEventListener('click', resetTimer);
 
 // -- FUNCTIONS -- //
+
+function resetTimer() {
+  timerRunning = false;
+  paused = false;
+  clearInterval(interval);
+  minutes = parseInt(initialTime[0]);
+  seconds = parseInt(initialTime[1]);
+  timerDisplay.textContent = minutes + `:0${seconds}`
+}
+
 function timer() {
 
   minutes = minutes - 1;
