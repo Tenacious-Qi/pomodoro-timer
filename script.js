@@ -3,6 +3,7 @@ let seconds = 0
 let timerRunning = false;
 let paused = false;
 let interval;
+let pausedTime;
 
 
 // -- QUERY SELECTORS --  //
@@ -18,20 +19,22 @@ timerDisplay.textContent = minutes + `:0${seconds}`
 initialTime = timerDisplay.textContent.split(':')
 
 // -- EVENT LISTENERS -- //
+shortBreak.addEventListener('click', function() {
+  minutes = 5;
+  takeBreak();
+});
+
+longBreak.addEventListener('click', function(){
+  minutes = 10;
+  takeBreak();
+});
+
 tomato.addEventListener('click', function() {
   resetTimer();
   timer();
   timerRunning = true; 
 });
 
-start.addEventListener('click', function() {
-  if (timerRunning === false) {
-    timer();
-  }
-  timerRunning = true;
-});
-
-let pausedTime;
 stop.addEventListener('click', function() {
   clearInterval(interval);
   timerRunning = false;
@@ -41,10 +44,25 @@ stop.addEventListener('click', function() {
   
 });
 
-let resetClicked = false;
+start.addEventListener('click', function() {
+  if (timerRunning === false) {
+    timer();
+  }
+  timerRunning = true;
+});
+
 reset.addEventListener('click', resetTimer);
 
 // -- FUNCTIONS -- //
+
+function takeBreak() {
+  seconds = 0;
+  paused = false;
+  clearInterval(interval);
+  timerDisplay.textContent = minutes + `:0${seconds}`
+  timerRunning = true;
+  timer();
+}
 
 function resetTimer() {
   timerRunning = false;
@@ -56,9 +74,9 @@ function resetTimer() {
 }
 
 function timer() {
-
   minutes = minutes - 1;
   seconds = 59;
+    // if `stop` is clicked, then start timer where it left off
     if (paused === true) {
       minutes = parseInt(pausedTime[0]);
       seconds = parseInt(pausedTime[1]);
