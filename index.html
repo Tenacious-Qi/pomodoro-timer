@@ -8,18 +8,29 @@
         <title>Tomato Timer</title>
     </head>
     <body>
+
       <h1>Tomato Timer</h1>
+
       <div class="break-buttons">
         <button class="btn-break-short">SHORT BREAK</button>
         <button class="btn-tomato">FRESH TOMATO</button>
         <button class="btn-break-long">LONG BREAK</button>
       </div>
+
       <div class="time-display"></div>
+
+      <div class="slider-container"> 
+        <label class="slider-label" for="change-size">set tomato</label>
+        <input class="tomato-slider" type="range" name="change-size" min="1" max="60" value="25">
+        <p class="input-value">25</p>
+      </div>
+
       <div class="start-stop-reset">
         <button class="btn-stop">STOP</button>
         <button class="btn-start">START</button>
         <button class="btn-reset">RESET</button>
       </div>
+
     <script src="script.js"></script>
     </body>
 </html>

@@ -4,6 +4,7 @@ let timerRunning = false;
 let paused = false;
 let interval;
 let pausedTime;
+let initialTime;
 
 
 // -- QUERY SELECTORS --  //
@@ -14,25 +15,31 @@ const stop = document.querySelector('.btn-stop');
 const reset = document.querySelector('.btn-reset');
 const shortBreak = document.querySelector('.btn-break-short');
 const longBreak = document.querySelector('.btn-break-long');
+const tomatoSlider = document.querySelector('.tomato-slider');
+let inputValue = document.querySelector('.input-value');
 
 timerDisplay.textContent = minutes + `:0${seconds}`
-initialTime = timerDisplay.textContent.split(':')
+initialTime = timerDisplay.textContent.split(':');
 
 // -- EVENT LISTENERS -- //
 shortBreak.addEventListener('click', function() {
   minutes = 5;
   takeBreak();
+  padMinutesAndSeconds();
 });
 
 longBreak.addEventListener('click', function(){
   minutes = 10;
   takeBreak();
+  padMinutesAndSeconds();
 });
+
 
 tomato.addEventListener('click', function() {
   resetTimer();
   timer();
   timerRunning = true; 
+  padMinutesAndSeconds();
 });
 
 stop.addEventListener('click', function() {
@@ -53,7 +60,26 @@ start.addEventListener('click', function() {
 
 reset.addEventListener('click', resetTimer);
 
+tomatoSlider.addEventListener('change', updateTimer);
+tomatoSlider.addEventListener('mousemove', function() {
+  inputValue.textContent = `${this.value}`;
+});
+
 // -- FUNCTIONS -- //
+
+function updateTimer() {
+  minutes = this.value;
+  initialTime[0] = this.value;
+  initialTime[1] = 0
+  pausedTime = timerDisplay.textContent.split(':')
+  pausedTime[0] = this.value;
+  pausedTime[1] = 0
+  seconds = 0;
+  timerDisplay.textContent = this.value + `:0${seconds}`
+  clearInterval(interval);
+  timerRunning = false;
+  padMinutesAndSeconds();
+}
 
 function takeBreak() {
   seconds = 0;
@@ -73,6 +99,22 @@ function resetTimer() {
   timerDisplay.textContent = minutes + `:0${seconds}`
 }
 
+// pad minutes or seconds with zeros accordingly
+function padMinutesAndSeconds() {
+  if (minutes < 10 || seconds < 10) {
+
+    if (seconds < 10 && minutes < 10) {
+      timerDisplay.textContent = `0${minutes}` + `:0${seconds}`
+    }
+    if (minutes < 10 && seconds > 9) {
+      timerDisplay.textContent = `0${minutes}:` + seconds;
+    }
+    if (seconds < 10 && minutes > 9) {
+      timerDisplay.textContent = `${minutes}:` + `0${seconds}`;
+    }
+  }
+}
+
 function timer() {
   minutes = minutes - 1;
   seconds = 59;
@@ -85,9 +127,8 @@ function timer() {
   //setInterval Function
   interval = setInterval(function() {
   timerDisplay.textContent = minutes + `:${seconds}`;
-    if (seconds < 10) {
-      timerDisplay.textContent = minutes + `:0${seconds}`
-    }
+
+    padMinutesAndSeconds();
       
     seconds = seconds - 1;
     if (seconds < 0) {

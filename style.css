@@ -103,6 +103,26 @@ button {
 
 button:hover {
   cursor: pointer;
-  opacity: .9;
+  opacity: .85;
   transition: .2s;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+}
+
+.input-value {
+  font-size: 1.5rem;
+}
+
+.slider-label {
+  font-size: 1.6rem;
+  color: var(--green);
+  font-weight: 700;
+  margin-right: 5px;
+}
+
+.tomato-slider {
+  margin: 0 10px;
 }
