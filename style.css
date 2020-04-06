@@ -7,6 +7,7 @@
   --green: #27ae60; 
   --red: #c0392b;
   --lightred: #e74c3c;
+  --orange: #e67e22;
 }
 
 html {
@@ -15,7 +16,7 @@ html {
   font-size: 10px;
   font-weight: 500;
   color: var(--gray);
-  background:linear-gradient(0.25turn, #e67e22, var(--red), var(--lightred));
+  background:linear-gradient(0.25turn, var(--orange), var(--red), var(--lightred));
 }
 *,
 *:before,
@@ -34,9 +35,9 @@ body {
 
 h1 {
   padding-bottom: 10px;
-  border-bottom: solid 3.5px var(--green);
+  border-bottom: solid 4.5px var(--green);
   font-weight: 700;
-  font-size: 2.25rem;
+  font-size: 2.75rem;
   letter-spacing: .75rem;
   margin-bottom: 40px;
 }
@@ -69,4 +70,39 @@ h1 {
   letter-spacing: .5rem;
 }
 
+.btn-start {
+  background-color: var(--green);
+  color: var(--gray);
+}
 
+.btn-stop {
+  background-color: var(--black);
+  color: var(--gray);
+}
+
+.btn-reset {
+  background-color: var(--orange);
+  color: var(--gray);
+}
+
+.btn-break-short, .btn-break-long {
+  background-color: var(--gray);
+  color: var(--black)
+}
+
+.btn-tomato {
+  background-color: var(--green);
+  color: var(--gray);
+}
+
+button {
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  border-radius: 10px;
+}
+
+button:hover {
+  cursor: pointer;
+  opacity: .9;
+  transition: .2s;
+}
