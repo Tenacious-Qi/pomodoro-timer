@@ -11,7 +11,7 @@
     <body>
 
       <h1>Tomato Timer</h1>
-
+      
       <div class="break-buttons">
 
         <div class="break-btn-updown set-short-break" id="butt">
@@ -19,9 +19,9 @@
           <ion-icon name="caret-down-outline" class="btn-short-break-decrease"></ion-icon> 
         </div>
 
-        <button class="btn-break-short">SHORT BREAK (<p class="short-break-value">5</p>)</button>
-        <button class="btn-tomato">NEW TOMATO</button>
-        <button class="btn-break-long">LONG BREAK (<p class="long-break-value">10</p>)</button>
+        <button class="top-btn btn-break-short">SHORT BREAK (<p class="short-break-value">5</p>)</button>
+        <button class="top-btn btn-tomato">FRESH TOMATO</button>
+        <button class="top-btn btn-break-long">LONG BREAK (<p class="long-break-value">10</p>)</button>
 
         <div class="break-btn-updown set-long-break"> 
           <ion-icon name="caret-up-outline" class="btn-long-break-increase"></ion-icon> 
@@ -37,6 +37,8 @@
         <input class="tomato-slider" type="range" name="update-tomato" min="1" max="60" value="25">
         <p class="input-value">25</p>
       </div>
+
+      <div class="tomato-display">tomato count: 0</div>
 
       <div class="start-stop-reset">
         <button class="btn-stop">STOP</button>

@@ -12,14 +12,15 @@ let longBreakMinutes;
 // -- QUERY SELECTORS --  //
 const audio = document.querySelector('#alarm');
 const timerDisplay = document.querySelector('.time-display')
-const tomato = document.querySelector('.btn-tomato');
 const start = document.querySelector('.btn-start');
 const stop = document.querySelector('.btn-stop');
 const reset = document.querySelector('.btn-reset');
+const tomato = document.querySelector('.btn-tomato');
 const shortBreak = document.querySelector('.btn-break-short');
 const longBreak = document.querySelector('.btn-break-long');
+let tomatoDisplay = document.querySelector('.tomato-display');
 
-// query selectors for changing timer settings
+// QUERY SELECTORS FOR CHANGING TIMER SETTINGS
 const tomatoSlider = document.querySelector('.tomato-slider');
 const increaseShortBreakTime = document.querySelector('.btn-short-break-increase');
 const decreaseShortBreakTime = document.querySelector('.btn-short-break-decrease')
@@ -29,29 +30,37 @@ let inputValue = document.querySelector('.input-value');
 let shortBreakValue = document.querySelector('.short-break-value');
 let longBreakValue = document.querySelector('.long-break-value');
 
-
 timerDisplay.textContent = minutes + `:0${seconds}`
 initialTime = timerDisplay.textContent.split(':');
 
 // -- EVENT LISTENERS -- //
+
 shortBreak.addEventListener('click', function() {
   minutes = parseInt(shortBreakValue.textContent);
   takeBreak();
   padMinutesAndSeconds();
+  shortBreak.classList.add('active');
+  longBreak.classList.remove('active');
+  tomato.classList.remove('active');
 });
 
 longBreak.addEventListener('click', function(){
   minutes = parseInt(longBreakValue.textContent);
   takeBreak();
   padMinutesAndSeconds();
+  longBreak.classList.add('active');
+  shortBreak.classList.remove('active');
+  tomato.classList.remove('active');
 });
-
 
 tomato.addEventListener('click', function() {
   resetTimer();
   timer();
   timerRunning = true; 
   padMinutesAndSeconds();
+  tomato.classList.add('active');
+  shortBreak.classList.remove('active');
+  longBreak.classList.remove('active');
 });
 
 stop.addEventListener('click', function() {
@@ -67,6 +76,7 @@ start.addEventListener('click', function() {
     timer();
   }
   timerRunning = true;
+  tomato.classList.add('active');
 });
 
 reset.addEventListener('click', resetTimer);
@@ -112,6 +122,7 @@ function updateTimer() {
   timerRunning = false;
   clearInterval(interval);
   padMinutesAndSeconds();
+  tomato.classList.remove('active');
 }
 
 function takeBreak() {
@@ -120,7 +131,14 @@ function takeBreak() {
   timerRunning = true;
   clearInterval(interval);
   timerDisplay.textContent = minutes + `:0${seconds}`
-  timer();
+  delayTimer(); // so timerDisplay shows 5:00 instead of 4:59 on click.
+}
+
+function delayTimer() {
+  const delayedTimer = setInterval(function() {
+    timer()
+    clearInterval(delayedTimer)
+  }, 10);
 }
 
 function resetTimer() {
@@ -130,8 +148,10 @@ function resetTimer() {
   minutes = parseInt(initialTime[0]);
   seconds = parseInt(initialTime[1]);
   timerDisplay.textContent = minutes + `:0${seconds}`
-  timerDisplay.style.color = "#dfe6e9"
   padMinutesAndSeconds();
+  tomato.classList.add('active');
+  longBreak.classList.remove('active');
+  shortBreak.classList.remove('active');
 }
 
 // pad minutes or seconds with zeros accordingly
@@ -149,14 +169,14 @@ function padMinutesAndSeconds() {
     }
   }
 }
-
+let tomatoCount = 0;
 function timer() {
   minutes = minutes - 1;
   seconds = 59;
     // if `STOP` is clicked, then start timer where it left off
     if (paused === true) {
       minutes = parseInt(pausedTime[0]);
-      seconds = parseInt(pausedTime[1]);
+      seconds = parseInt(pausedTime[1] - 1); //account for delay when restarting timer.
     }
 
   //setInterval Function
@@ -165,17 +185,18 @@ function timer() {
     
     padMinutesAndSeconds();
     seconds = seconds - 1;
-    if (seconds <= 0) {
+    if (seconds < 0) {
       seconds = seconds + 60
       minutes = minutes - 1
     }
 
     if (minutes < 0) {
+      tomatoCount = tomatoCount + 1;
+      tomatoDisplay.textContent = "tomato count: " + ` ${tomatoCount}`;
       clearInterval(interval)
       audio.play();
       timerDisplay.textContent = "Time\'s up!";
-      timerDisplay.style.color = "#2d3436"
-      //reset timer after displaying "Time's up!"
+      //reset timer after displaying "Time's up!" for 10 seconds
       timerEndInterval = setInterval(function() {
         resetTimer();
         clearInterval(timerEndInterval);
@@ -183,6 +204,8 @@ function timer() {
     }
   }, 1000);
 }
+
+
 
 
 
