@@ -9,6 +9,7 @@ let initialTime;
 let shortBreakMinutes;
 let longBreakMinutes;
 
+
 // -- QUERY SELECTORS --  //
 const audio = document.querySelector('#alarm');
 const timerDisplay = document.querySelector('.time-display')
@@ -126,6 +127,7 @@ function updateTimer() {
 }
 
 function takeBreak() {
+  
   seconds = 0;
   paused = false;
   timerRunning = true;
@@ -152,6 +154,7 @@ function resetTimer() {
   tomato.classList.add('active');
   longBreak.classList.remove('active');
   shortBreak.classList.remove('active');
+  document.title = 'TomatoTimer';
 }
 
 // pad minutes or seconds with zeros accordingly
@@ -182,8 +185,8 @@ function timer() {
   //setInterval Function
   interval = setInterval(function() {
   timerDisplay.textContent = minutes + `:${seconds}`;
-    
     padMinutesAndSeconds();
+    document.title = 'T (' + timerDisplay.textContent + ')';
     seconds = seconds - 1;
     if (seconds < 0) {
       seconds = seconds + 60
@@ -196,6 +199,7 @@ function timer() {
       clearInterval(interval)
       audio.play();
       timerDisplay.textContent = "Time\'s up!";
+      document.title = 'BUZZZZ!';
       //reset timer after displaying "Time's up!" for 10 seconds
       timerEndInterval = setInterval(function() {
         resetTimer();
