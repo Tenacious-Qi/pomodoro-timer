@@ -1,14 +1,13 @@
 let minutes = 25
 let seconds = 0
+let tomatoCount = 0;
 let timerRunning = false;
 let paused = false;
+let onBreak = false;
 let interval;
 let timerEndInterval;
 let pausedTime;
 let initialTime;
-let shortBreakMinutes;
-let longBreakMinutes;
-
 
 // -- QUERY SELECTORS --  //
 const audio = document.querySelector('#alarm');
@@ -19,7 +18,8 @@ const reset = document.querySelector('.btn-reset');
 const tomato = document.querySelector('.btn-tomato');
 const shortBreak = document.querySelector('.btn-break-short');
 const longBreak = document.querySelector('.btn-break-long');
-let tomatoDisplay = document.querySelector('.tomato-display');
+const tomatoDisplay = document.querySelector('.tomato-display');
+const sessionDisplay = document.querySelector('.session-display');
 
 // QUERY SELECTORS FOR CHANGING TIMER SETTINGS
 const tomatoSlider = document.querySelector('.tomato-slider');
@@ -35,7 +35,6 @@ timerDisplay.textContent = minutes + `:0${seconds}`
 initialTime = timerDisplay.textContent.split(':');
 
 // -- EVENT LISTENERS -- //
-
 shortBreak.addEventListener('click', function() {
   minutes = parseInt(shortBreakValue.textContent);
   takeBreak();
@@ -73,9 +72,7 @@ stop.addEventListener('click', function() {
 });
 
 start.addEventListener('click', function() {
-  if (timerRunning === false) {
-    timer();
-  }
+  if (timerRunning === false) {timer();}
   timerRunning = true;
   tomato.classList.add('active');
 });
@@ -88,7 +85,6 @@ tomatoSlider.addEventListener('mousemove', function() {
 });
 
 // EVENT LISTENERS TO HANDLE CHANGES TO BREAK DURATION. 
-// add or subtract a minute depending on which button is clicked
 increaseShortBreakTime.addEventListener('click', function() {
   shortBreakValue.textContent = parseInt(shortBreakValue.textContent) + 1;
 });
@@ -110,7 +106,6 @@ decreaseLongBreakTime.addEventListener('click', function() {
 });
 
 // -- FUNCTIONS -- //
-
 function updateTimer() {
   minutes = this.value;
   initialTime[0] = this.value;
@@ -127,7 +122,7 @@ function updateTimer() {
 }
 
 function takeBreak() {
-  
+  onBreak = true;
   seconds = 0;
   paused = false;
   timerRunning = true;
@@ -140,12 +135,13 @@ function delayTimer() {
   const delayedTimer = setInterval(function() {
     timer()
     clearInterval(delayedTimer)
-  }, 10);
+  }, 100);
 }
 
 function resetTimer() {
   timerRunning = false;
   paused = false;
+  onBreak = false;
   clearInterval(interval);
   minutes = parseInt(initialTime[0]);
   seconds = parseInt(initialTime[1]);
@@ -172,48 +168,51 @@ function padMinutesAndSeconds() {
     }
   }
 }
-let tomatoCount = 0;
+
+function countNumberofTomatoes() {
+  let completedSessions;
+  if (onBreak === false) {
+    tomatoCount = tomatoCount + 1;
+    completedSessions = tomatoCount / 4;
+    tomatoDisplay.innerHTML = "tomatoes" + "<br />" + `${tomatoCount}`;
+    sessionDisplay.innerHTML = "sessions" + "<br />" + `${completedSessions}`;
+  }
+}
+
 function timer() {
   minutes = minutes - 1;
   seconds = 59;
     // if `STOP` is clicked, then start timer where it left off
     if (paused === true) {
       minutes = parseInt(pausedTime[0]);
-      seconds = parseInt(pausedTime[1] - 1); //account for delay when restarting timer.
+      seconds = parseInt(pausedTime[1]);
     }
-
   //setInterval Function
   interval = setInterval(function() {
-  timerDisplay.textContent = minutes + `:${seconds}`;
+
+    timerDisplay.textContent = minutes + `:${seconds}`;
     padMinutesAndSeconds();
-    document.title = 'T (' + timerDisplay.textContent + ')';
+    document.title = '(' + timerDisplay.textContent + ')' + ' TomatoTimer';
+
     seconds = seconds - 1;
+
     if (seconds < 0) {
       seconds = seconds + 60
       minutes = minutes - 1
     }
-
+    
     if (minutes < 0) {
-      tomatoCount = tomatoCount + 1;
-      tomatoDisplay.textContent = "tomato count: " + ` ${tomatoCount}`;
+      countNumberofTomatoes(); 
       clearInterval(interval)
       audio.play();
       timerDisplay.textContent = "Time\'s up!";
-      document.title = 'BUZZZZ!';
-      //reset timer after displaying "Time's up!" for 10 seconds
+      document.title = 'BUZZZZZzZZzZZZZzZZZ!';
+
+      //reset timer after displaying "Time's up!" for 5 seconds
       timerEndInterval = setInterval(function() {
         resetTimer();
         clearInterval(timerEndInterval);
-      }, 10000);
+      }, 5000);
     }
   }, 1000);
 }
-
-
-
-
-
-
-
-
-

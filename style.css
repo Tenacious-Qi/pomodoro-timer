@@ -1,7 +1,6 @@
 :root {
   --black: #2d3436;
   --gray: #dfe6e9;
-  --blue: #2980b9; 
   --green: #009432; 
   --red: #c0392b;
   --lightred: #e74c3c;
@@ -38,6 +37,7 @@ h1 {
   font-size: 2.75rem;
   letter-spacing: .75rem;
   margin-bottom: 50px;
+  text-shadow: var(--green) 2px 2px 2px;
 }
 
 .break-buttons {
@@ -57,7 +57,7 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 30px;
  }
 
 .start-stop-reset button {
@@ -69,6 +69,7 @@ h1 {
   padding: 20px;
   font-size: 10rem;
   letter-spacing: .5rem;
+  text-shadow: var(--green) 2px 2px 2px;
 }
 
 .btn-start {
@@ -92,7 +93,7 @@ h1 {
   justify-content: center;
   background-color: var(--gray);
   color: var(--black);
-  width: 174px;
+  width: 180px;
   height: 40px;
 }
 
@@ -109,9 +110,9 @@ button:hover, ion-icon:hover {
   transition: .3s;
 }
 
-.slider-container {
-  display: flex;
-  align-items: center;
+button:focus { 
+  outline-color: var(--gray);
+  outline-style: thin dotted;
 }
 
 .break-btn-updown ion-icon {
@@ -121,24 +122,38 @@ button:hover, ion-icon:hover {
   color: var(--green);
 }
 
+.slider-container {
+  display: flex;
+  align-items: center;
+}
+
 .input-value {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
+  text-shadow: var(--black) 1px 1px 1px;
 }
 
 .slider-label {
-  font-size: 1.7rem;
+  font-size: 1.9rem;
   color: var(--green);
+  text-shadow: var(--black) 1px 1px 1px;
   font-weight: 700;
   margin-right: 5px;
 }
 
 .tomato-slider {
-  margin: 0 10px;
+  margin: 0 20px;
 }
 
-.tomato-display {
-  font-size: 1.3rem;
-  text-decoration: underline;
+.counter {
+  display: flex;
+  margin: 0 50px;
+}
+.tomato-display, .session-display {
+  text-align: center;
+  font-size: 1.7rem;
+  margin: 0 170px;
+  text-shadow: var(--black) 1px 1px 1px;
+  line-height: 25px;
 }
 
 .active {
