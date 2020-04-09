@@ -32,12 +32,12 @@ body {
 
 h1 {
   padding-bottom: 10px;
-  border-bottom: solid 4.5px var(--green);
+  border-bottom: solid 2.5px var(--green);
   font-weight: 700;
   font-size: 2.75rem;
   letter-spacing: .75rem;
   margin-bottom: 50px;
-  text-shadow: var(--green) 2px 2px 2px;
+  text-shadow: var(--green) 1px 1px 1px;
 }
 
 .break-buttons {
@@ -154,6 +154,16 @@ button:focus {
   margin: 0 170px;
   text-shadow: var(--black) 1px 1px 1px;
   line-height: 25px;
+}
+
+.reset-count {
+  font-size: 350%;
+  margin-top: 10px;
+}
+
+.reset-count:hover {
+  color: var(--green);
+  transition: .3s;
 }
 
 .active {

@@ -1,6 +1,7 @@
 let minutes = 25
 let seconds = 0
 let tomatoCount = 0;
+let completedSessions = 0;
 let timerRunning = false;
 let paused = false;
 let onBreak = false;
@@ -21,15 +22,16 @@ const longBreak = document.querySelector('.btn-break-long');
 const tomatoDisplay = document.querySelector('.tomato-display');
 const sessionDisplay = document.querySelector('.session-display');
 
-// QUERY SELECTORS FOR CHANGING TIMER SETTINGS
+// -- QUERY SELECTORS FOR CHANGING TIMER SETTINGS -- //
 const tomatoSlider = document.querySelector('.tomato-slider');
 const increaseShortBreakTime = document.querySelector('.btn-short-break-increase');
 const decreaseShortBreakTime = document.querySelector('.btn-short-break-decrease')
 const increaseLongBreakTime = document.querySelector('.btn-long-break-increase');
 const decreaseLongBreakTime = document.querySelector('.btn-long-break-decrease');
+const shortBreakValue = document.querySelector('.short-break-value');
+const longBreakValue = document.querySelector('.long-break-value');
+const resetCount = document.querySelector('.reset-count');
 let inputValue = document.querySelector('.input-value');
-let shortBreakValue = document.querySelector('.short-break-value');
-let longBreakValue = document.querySelector('.long-break-value');
 
 timerDisplay.textContent = minutes + `:0${seconds}`
 initialTime = timerDisplay.textContent.split(':');
@@ -77,14 +79,16 @@ start.addEventListener('click', function() {
   tomato.classList.add('active');
 });
 
-reset.addEventListener('click', resetTimer);
-
 tomatoSlider.addEventListener('change', updateTimer);
 tomatoSlider.addEventListener('mousemove', function() {
   inputValue.textContent = `${this.value} min`;
 });
 
-// EVENT LISTENERS TO HANDLE CHANGES TO BREAK DURATION. 
+// -- RESET EVENT LISTENERS -- //
+reset.addEventListener('click', resetTimer);
+resetCount.addEventListener('click', resetTomatoesAndSessions)
+
+// -- EVENT LISTENERS TO HANDLE CHANGES TO BREAK DURATION. -- //
 increaseShortBreakTime.addEventListener('click', function() {
   shortBreakValue.textContent = parseInt(shortBreakValue.textContent) + 1;
 });
@@ -170,13 +174,22 @@ function padMinutesAndSeconds() {
 }
 
 function countNumberofTomatoes() {
-  let completedSessions;
   if (onBreak === false) {
     tomatoCount = tomatoCount + 1;
     completedSessions = tomatoCount / 4;
-    tomatoDisplay.innerHTML = "tomatoes" + "<br />" + `${tomatoCount}`;
-    sessionDisplay.innerHTML = "sessions" + "<br />" + `${completedSessions}`;
+    displayTomatoAndSessionCount();
   }
+}
+
+function resetTomatoesAndSessions() {
+  tomatoCount = 0;
+  completedSessions = 0;
+  displayTomatoAndSessionCount();
+}
+
+function displayTomatoAndSessionCount() {
+  tomatoDisplay.innerHTML = "tomatoes" + "<br />" + `${tomatoCount}`;
+  sessionDisplay.innerHTML = "sessions" + "<br />" + `${completedSessions}`;
 }
 
 function timer() {
