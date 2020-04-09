@@ -90,21 +90,25 @@ resetCount.addEventListener('click', resetTomatoesAndSessions)
 
 // -- EVENT LISTENERS TO HANDLE CHANGES TO BREAK DURATION. -- //
 increaseShortBreakTime.addEventListener('click', function() {
-  shortBreakValue.textContent = parseInt(shortBreakValue.textContent) + 1;
+  if (parseInt(shortBreakValue.textContent) < 60) { // limit break time to 1 hour
+    shortBreakValue.textContent = parseInt(shortBreakValue.textContent) + 1;
+  }
 });
 
 decreaseShortBreakTime.addEventListener('click', function() {
-  if (parseInt(shortBreakValue.textContent) > 1) {
+  if (parseInt(shortBreakValue.textContent) > 1) { // prevent negative break times
     shortBreakValue.textContent = parseInt(shortBreakValue.textContent) - 1;
   }
 });
 
 increaseLongBreakTime.addEventListener('click', function() {
-  longBreakValue.textContent = parseInt(longBreakValue.textContent) + 1;
+  if (parseInt(longBreakValue.textContent) < 60) { // limit break time to 1 hour
+    longBreakValue.textContent = parseInt(longBreakValue.textContent) + 1;
+  }
 });
 
 decreaseLongBreakTime.addEventListener('click', function() {
-  if (parseInt(longBreakValue.textContent) > 1) {
+  if (parseInt(longBreakValue.textContent) > 1) { // prevent negative break times
     longBreakValue.textContent = parseInt(longBreakValue.textContent) - 1;
   }
 });
