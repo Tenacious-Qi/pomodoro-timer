@@ -36,6 +36,8 @@ let inputValue = document.querySelector('.input-value');
 timerDisplay.textContent = minutes + `:0${seconds}`
 initialTime = timerDisplay.textContent.split(':');
 
+audio.volume = 0.3
+
 // -- EVENT LISTENERS -- //
 shortBreak.addEventListener('click', function() {
   minutes = parseInt(shortBreakValue.textContent);
